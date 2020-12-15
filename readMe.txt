@@ -1,4 +1,1 @@
-Intalliere:
-
-- pip3 install HX711
-- 
+Das kann unser Programm:
