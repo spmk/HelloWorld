@@ -21,16 +21,22 @@ def drucker_aus(pin):
 def drucker_ein(pin):
 	GPIO.output(pin, GPIO.LOW)
 
-try:
-	for x in range(0,2):
-		drucker_aus(channel)
-		time.sleep(30)
-		drucker_ein(channel)
-		time.sleep(30)
-		x+=1
-except KeyboardInterrupt:
-	GPIO.cleanup()
-	pass
+'''
+Probiere den Drucker aus/einzuschalten je nach Status 
+(warping oder kein Warping)
+'''
+def statusDrucker(status):
+	try:
+		if status == "warping":
+			drucker_aus(channel)
+		elif status == "no_warping":
+			drucker_ein(channel)
+		else:
+			#green.blink()
+			red.blink()
+	except KeyboardInterrupt:
+		GPIO.cleanup()
+		pass
 	
 
 	
