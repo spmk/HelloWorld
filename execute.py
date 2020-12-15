@@ -27,12 +27,11 @@ if __name__ == "__main__":
 		print('Current value measured is: ')
 		while True:
 			outputvalue = hx711.get_weight_mean(averageOfXValues)
-			print(outputvalue, "")
+			print(outputvalue, "") # "" steht für die Einheit
 			if outputvalue>limit:
 				statusLEDs.lightLed("warping")
 				Relaise.statusDrucker("warping")
 				telegrambot.sendMessage()
-				
 				time.sleep(20)
 				Relaise.statusDrucker("no_warping")
 				#userinput = input("Fehler erkannt! Druck Fortsetzen? (y / n)" ) #nur für test
