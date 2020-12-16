@@ -26,9 +26,16 @@ if __name__ == "__main__":
 		print("Now, I will read data in infinite loop. To exit press 'CTRL + C'")
 		input('Press Enter to begin reading')
 		print('Current value measured is: ')
+		fo = open("Daten.txt", "a+") # Oeffne Daten.txt
+		print('Values are saved to Daten.txt')
 		while True:
 			outputvalue = hx711.get_weight_mean(averageOfXValues)
 			print(outputvalue, "") # Hier "" kann eine Einheit eingefuegt werden
+			
+			#Messfile für Visualisierung schreiben
+			
+			f.write(outputvalue) # Schreibe aktuellen Messwert in Daten.txt
+			
 			if outputvalue>limit:
 				statusLEDs.lightLed("warping")
 				Relais.statusDrucker("warping")
@@ -41,10 +48,11 @@ if __name__ == "__main__":
 				#else:
 					#statusLEDs.lightLed("no_warping")
 			
-	except (KeyboardInterrupt, SystemExit): #Programm kann mit Ctrl + C angehalten werden 
+	except (KeyboardInterrupt, SystemExit): #Programm kann mit Ctrl + C angehalten werden
 		print("Pfiat di Gott! :D")
 
 	finally:
+		f.close() # Schliesse Daten.txt
 		GPIO.cleanup()
 
  
