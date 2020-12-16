@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 import time
 from datetime import datetime
 import csv
+import os
 import statusLEDs
 import Relais
 import telegrambot
@@ -26,7 +27,8 @@ if __name__ == "__main__":
 		
 		#Erstelle eine neue csv-datei:
 		date_time = datetime.now().strftime("%y-%m-%d_%H-%M")
-		f = open(/Data/ + date_time + ".csv", mode= "w",encoding= "utf-8", newline="")
+		path=os.getcwd()+"/Data/" + date_time
+		f = open(path + ".csv", mode='w',encoding="utf-8", newline="")
 		f_csv_writer = csv.writer(f,delimiter=",")
 		row_index = 0
 
