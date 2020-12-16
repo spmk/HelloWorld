@@ -24,7 +24,7 @@ if __name__ == "__main__":
 		averageOfXValues = 10 #Anzahl an Ausgelesenen Werten, die zur Auswertung gemittelt werden
 		hx711.set_scale_ratio(scaleRatio)
 		
-		#Kreiere eine neue csv-datei
+		#Erstelle eine neue csv-datei:
 		date_time = datetime.now().strftime("%y-%m-%d_%H-%M")
 		f = open(date_time + ".csv", mode= "w",encoding= "utf-8", newline="")
 		f_csv_writer = csv.writer(f,delimiter=",")
@@ -41,10 +41,11 @@ if __name__ == "__main__":
 			outputvalue = hx711.get_weight_mean(averageOfXValues)
 			print(outputvalue, "") # Hier "" kann eine Einheit eingefuegt werden
 			
-			#MErstelle Inhalt der naechsten Reihe:
+			#Erstelle Inhalt der naechsten Reihe:
 			row_time = datetime.now().strftime("%H/%M/%S")
 			row_content = [row_index, row_time, outputvalue]
 			row_index +=1
+			#Schreibe die naeste Reihe:
 			f_csv_writer.writerow(row_content)
 			
 			if outputvalue>limit:
