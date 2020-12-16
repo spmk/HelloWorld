@@ -30,7 +30,7 @@ if __name__ == "__main__":
 		f_csv_writer = csv.writer(f,delimiter=",")
 		row_index = 0
 
-		print('Values are saved to Daten.txt')
+		print("Values are saved to: " + date_time + ".csv")
 
 		#Gewichte ausgeben, LEDs Relaise ansteuern
 		print("Now, I will read data in infinite loop. To exit press 'CTRL + C'")
