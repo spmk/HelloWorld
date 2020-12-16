@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 from hx711 import HX711
 import RPi.GPIO as GPIO
+import time
+from datetime import datetime
+import csv
 import statusLEDs
 import Relais
-import time
 import telegrambot
 
 #Code wird nur ausgefuhrt, wenn execute direkt ausgefuehrt wird
@@ -22,19 +24,28 @@ if __name__ == "__main__":
 		averageOfXValues = 10 #Anzahl an Ausgelesenen Werten, die zur Auswertung gemittelt werden
 		hx711.set_scale_ratio(scaleRatio)
 		
+		#Kreiere eine neue csv-datei
+		date_time = datetime.now().strftime("%y-%m-%d_%H-%M")
+		f = open(date_time + ".csv", mode= "w",encoding= "utf-8", newline="")
+		f_csv_writer = csv.writer(f,delimiter=",")
+		row_index = 0
+
+		print('Values are saved to Daten.txt')
+
 		#Gewichte ausgeben, LEDs Relaise ansteuern
 		print("Now, I will read data in infinite loop. To exit press 'CTRL + C'")
 		input('Press Enter to begin reading')
 		print('Current value measured is: ')
-		fo = open("Daten.txt", "a+") # Oeffne Daten.txt
-		print('Values are saved to Daten.txt')
+
 		while True:
 			outputvalue = hx711.get_weight_mean(averageOfXValues)
 			print(outputvalue, "") # Hier "" kann eine Einheit eingefuegt werden
 			
-			#Messfile für Visualisierung schreiben
-			
-			f.write(outputvalue) # Schreibe aktuellen Messwert in Daten.txt
+			#MErstelle Inhalt der naechsten Reihe:
+			row_time = datetime.now().strftime("%H/%M/%S")
+			row_content = [row_index, row_time, outputvalue]
+			row_index +=1
+			f_csv_writer.writerow(row_content)
 			
 			if outputvalue>limit:
 				statusLEDs.lightLed("warping")
@@ -42,12 +53,7 @@ if __name__ == "__main__":
 				telegrambot.sendMessage()
 				time.sleep(20)
 				Relais.statusDrucker("no_warping")
-				#userinput = input("Fehler erkannt! Druck Fortsetzen? (y / n)" ) #test
-				#if userinput == "y":
-					#Print("Strom wird wieder eingeschaltet. Druck kann manuell fortgesetzt werden.")
-				#else:
-					#statusLEDs.lightLed("no_warping")
-			
+							
 	except (KeyboardInterrupt, SystemExit): #Programm kann mit Ctrl + C angehalten werden
 		print("Pfiat di Gott! :D")
 

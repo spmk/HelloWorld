@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 from gpiozero import LED
-from signal import pause
 
 #Erstelle zwei LED Objekte
 green = LED("GPIO16")
