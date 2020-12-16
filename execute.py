@@ -2,7 +2,7 @@
 from hx711 import HX711
 import RPi.GPIO as GPIO
 import statusLEDs
-import Relaise
+import Relais
 import time
 import telegrambot
 
@@ -16,7 +16,7 @@ if __name__ == "__main__":
 		hx711.zero()    #Offset eliminieren
 		
 		#Scale Ratio setzen
-		scaleRatio = -1 #Spannungswert für Warping initial
+		scaleRatio = -1 #Spannungswert fuer Warping initial
 		limit = 10000 #Wert, ab dem Warping erkannt wird
 		averageOfXValues = 10 #Anzahl an Ausgelesenen Werten, die zur Auswertung gemittelt werden
 		hx711.set_scale_ratio(scaleRatio)
@@ -30,11 +30,11 @@ if __name__ == "__main__":
 			print(outputvalue, "") # "" steht für die Einheit
 			if outputvalue>limit:
 				statusLEDs.lightLed("warping")
-				Relaise.statusDrucker("warping")
+				Relais.statusDrucker("warping")
 				telegrambot.sendMessage()
 				time.sleep(20)
-				Relaise.statusDrucker("no_warping")
-				#userinput = input("Fehler erkannt! Druck Fortsetzen? (y / n)" ) #nur für test
+				Relais.statusDrucker("no_warping")
+				#userinput = input("Fehler erkannt! Druck Fortsetzen? (y / n)" ) #test
 				#if userinput == "y":
 					#Print("Strom wird wieder eingeschaltet. Druck kann manuell fortgesetzt werden.")
 			#else:
