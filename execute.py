@@ -6,6 +6,7 @@ import Relais
 import time
 import telegrambot
 
+#Code wird nur ausgefuhrt, wenn execute direkt ausgefuehrt wird
 if __name__ == "__main__": 
 	try:
 		GPIO.setmode(GPIO.BCM)
@@ -27,7 +28,7 @@ if __name__ == "__main__":
 		print('Current value measured is: ')
 		while True:
 			outputvalue = hx711.get_weight_mean(averageOfXValues)
-			print(outputvalue, "") # "" steht für die Einheit
+			print(outputvalue, "") # Hier "" kann eine Einheit eingefuegt werden
 			if outputvalue>limit:
 				statusLEDs.lightLed("warping")
 				Relais.statusDrucker("warping")
@@ -37,8 +38,8 @@ if __name__ == "__main__":
 				#userinput = input("Fehler erkannt! Druck Fortsetzen? (y / n)" ) #test
 				#if userinput == "y":
 					#Print("Strom wird wieder eingeschaltet. Druck kann manuell fortgesetzt werden.")
-			#else:
-				#statusLEDs.lightLed("no_warping")
+				#else:
+					#statusLEDs.lightLed("no_warping")
 			
 	except (KeyboardInterrupt, SystemExit): #Programm kann mit Ctrl + C angehalten werden 
 		print("Pfiat di Gott! :D")
