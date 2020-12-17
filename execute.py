@@ -27,7 +27,7 @@ if __name__ == "__main__":
 		
 		#Erstelle eine neue csv-datei:
 		date_time = datetime.now().strftime("%y-%m-%d_%H-%M")
-		os.path.dirname(__file__)+"/Data/" + date_time
+		os.path.dirname((__file__)+"/Data/" + date_time)
 		f = open(path + ".csv", mode='w',encoding="utf-8", newline="")
 		f_csv_writer = csv.writer(f,delimiter=",")
 		row_index = 0
