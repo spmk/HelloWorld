@@ -27,7 +27,7 @@ if __name__ == "__main__":
 		
 		#Erstelle eine neue csv-datei:
 		date_time = datetime.now().strftime("%y-%m-%d_%H-%M")
-		os.path.dirname(__file__)+"/Data/" + date_time
+		os.path.dirname((__file__)+"/Data/" + date_time)
 		f = open(path + ".csv", mode='w',encoding="utf-8", newline="")
 		f_csv_writer = csv.writer(f,delimiter=",")
 		row_index = 0
@@ -56,12 +56,15 @@ if __name__ == "__main__":
 				telegrambot.sendMessage()
 				time.sleep(20)
 				Relais.statusDrucker("no_warping")
+				
+				
 							
 	except (KeyboardInterrupt, SystemExit): #Programm kann mit Ctrl + C angehalten werden
 		print("Pfiat di Gott! :D")
 
 	finally:
-		f.close() # Schliesse Daten.txt
+		print("werde ich ausgesuehrt?")
+		f.close() # Schliesse csv-Datei
 		GPIO.cleanup()
 
  
