@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3 test
 from gpiozero import LED
 
 #Erstelle zwei LED Objekte
